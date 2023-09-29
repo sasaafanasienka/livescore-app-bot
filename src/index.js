@@ -1,6 +1,5 @@
 import { Telegraf } from "telegraf";
-import { TELEGRAM_TOKEN } from "../../config/tokens.js";
-import { start } from "./commands/start.js";
+import { TELEGRAM_TOKEN } from "./config/tokens.js";
 
 class Bot extends Telegraf {
   constructor(TOKEN, options) {

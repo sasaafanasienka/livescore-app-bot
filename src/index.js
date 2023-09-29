@@ -14,7 +14,7 @@ class Bot extends Telegraf {
     this.command('start', (ctx) => {
       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
         ctx.reply(`${data.name}, ${data.sys.country}`)
-        ctx.reply(`${data.main.temp - 273}`)
+        ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
       })
     })  
   }

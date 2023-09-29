@@ -12,11 +12,10 @@ class Bot extends Telegraf {
   }
 
   request = (ctx) => {
-    ctx.sendMessage('Вы подписались')
-    // this.intervalId = setTimeout(() => {this.fetch(ctx)}, 1000)
+    this.started = true
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
+      const temp = (data.main.temp - 273).toFixed(2)
       if (temp !== this.temp) {
-        const temp = (data.main.temp - 273).toFixed(2)
         ctx.sendMessage(`${data.name}, ${data.sys.country}`)
         ctx.sendMessage(`${(data.main.temp - 273).toFixed(2)} C`)
         this.temp = temp;
@@ -27,10 +26,9 @@ class Bot extends Telegraf {
   init = () => {
     this.launch();
     this.command('start', (ctx) => {
-      // ctx.reply('sfdsfsdfsdfsd')
-      // this.started = true;
-      // this.fetch(ctx);
-      this.intervalId = setInterval(() => {this.request(ctx)}, 1200000)
+      ctx.reply('Вы подписались')
+      this.request(ctx)
+      this.intervalId = setTimeout(() => {this.request(ctx)}, 1000)
     })
     this.command('stop', (ctx) => {
       if (this.started) {

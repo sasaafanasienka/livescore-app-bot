@@ -32,7 +32,7 @@ class Bot extends Telegraf {
     this.launch();
     this.command('start', (ctx) => {
       this.started = true;
-      this.fetch();
+      this.fetch(ctx);
       // this.intervalId = setTimeout(() => {this.fetch(ctx)}, 1000)
     })
     this.command('stop', (ctx) => {

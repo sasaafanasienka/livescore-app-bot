@@ -12,17 +12,15 @@ class Bot extends Telegraf {
     // this.addMethods();
     this.launch();
     this.command('start', (ctx) => {
-      ctx.reply(1)
-      // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
-      //   ctx.reply(`${data.name}, ${data.sys.country}`)
-      //   ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
-      // })
+      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
+        ctx.reply(`${data.name}, ${data.sys.country}`)
+        ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
+      })
     })  
   }
 
   addMethods = () => {
     this.command('start', start)  
-    // this.action(/GET_COMPETITIONS:(.+)/, getCompetition)
   }
 }
 

@@ -48,22 +48,22 @@ const bot = initBot();
 // bot.launch()
 
 
-const ws = new WebSocket(`wss://wss.apifootball.com/livescore?WidgetKey=${API_TOKEN}&timezone=+03:00`); // Адрес WebSocket сервера
+// const ws = new WebSocket(`wss://wss.apifootball.com/livescore?WidgetKey=${API_TOKEN}&timezone=+03:00`); // Адрес WebSocket сервера
 
-ws.on('open', () => {
-  console.log('Успешное подключение к серверу');
+// ws.on('open', () => {
+//   console.log('Успешное подключение к серверу');
   
-  // Отправляем сообщение на сервер
-  ws.send('Привет, сервер!');
-});
+//   // Отправляем сообщение на сервер
+//   ws.send('Привет, сервер!');
+// });
 
-ws.on('message', (message) => {
-  const data = JSON.parse(message);
+// ws.on('message', (message) => {
+//   const data = JSON.parse(message);
 
-  // Ваша логика обработки сообщения от WebSocket сервера
-  // Например, отправка ответного сообщения пользователю через бота
-  const chatId = data.chatId;
-  const responseText = `Ответ от сервера: ${data.text}`;
+//   // Ваша логика обработки сообщения от WebSocket сервера
+//   // Например, отправка ответного сообщения пользователю через бота
+//   const chatId = data.chatId;
+//   const responseText = `Ответ от сервера: ${data.text}`;
 
-  bot.telegram.sendMessage(chatId, responseText);
-});
+//   bot.telegram.sendMessage(chatId, responseText);
+// });

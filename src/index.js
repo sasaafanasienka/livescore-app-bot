@@ -12,20 +12,20 @@ class Bot extends Telegraf {
   }
 
   fetch = (ctx) => {
-    ctx.sendMessage('dfsdfsdfsd')
-    this.intervalId = setTimeout(() => {this.fetch(ctx)}, 1000)
-    // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
-    //   const temp = (data.main.temp - 273).toFixed(2)
-    //   ctx.reply(`${data.name}, ${data.sys.country}`)
-    //   ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
-    //   this.temp = temp;
-    //   // ctx.reply(temp);
-    //   // ctx.reply(String(temp === this.temp))
-    //   // ctx.reply(this.temp);
-    //   // ctx.reply('Вы подписались')
-    //   // if (temp !== this.temp) {
-    //   // }
-    // })
+    // ctx.sendMessage('dfsdfsdfsd')
+    // this.intervalId = setTimeout(() => {this.fetch(ctx)}, 1000)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
+      const temp = (data.main.temp - 273).toFixed(2)
+      ctx.reply(`${data.name}, ${data.sys.country}`)
+      ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
+      this.temp = temp;
+      // ctx.reply(temp);
+      // ctx.reply(String(temp === this.temp))
+      // ctx.reply(this.temp);
+      // ctx.reply('Вы подписались')
+      // if (temp !== this.temp) {
+      // }
+    })
   }
 
   init = () => {

@@ -5,18 +5,35 @@ class Bot extends Telegraf {
   constructor(TOKEN, options) {
     super(TOKEN, options);
     this.lat = '53.8601';
-    this.lon = '27.5634';  
+    this.lon = '27.5634';
+    this.temp = 0;
+    this.intervalId = 0;
+    this.started = false;
   }
 
   init = () => {
-    // this.addMethods();
     this.launch();
     this.command('start', (ctx) => {
-      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
-        ctx.reply(`${data.name}, ${data.sys.country}`)
-        ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
-      })
-    })  
+      this.started = true;
+      this.intervalId = setInterval(() => {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${WEATHER_TOKEN}`).then(response => response.json()).then(data => {
+          const temp = (data.main.temp - 273).toFixed(2)
+          if (temp !== this.temp) {
+            ctx.reply(`${data.name}, ${data.sys.country}`)
+            ctx.reply(`${(data.main.temp - 273).toFixed(2)} C`)
+            this.temp = temp;
+          }
+        })
+      }, 1200000)
+    })
+    this.command('stop', (ctx) => {
+      if (this.started) {
+        clearInterval(this.intervalId)
+        ctx.reply('Вы отписались')
+      } else {
+        ctx.reply('Вы и так не были подписаны')
+      }
+    })
   }
 
   addMethods = () => {

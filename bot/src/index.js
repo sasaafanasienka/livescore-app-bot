@@ -58,11 +58,13 @@ class Bot extends Telegraf {
   }
 }
 
-export const initBot = () => {
-  const bot = new Bot(TELEGRAM_TOKEN, {
-    handlerTimeout: Infinity
-  })
-  bot.init();
-  return bot;
-}
+// export const initBot = () => {
+//   const bot = new Bot(TELEGRAM_TOKEN, {
+//     handlerTimeout: Infinity
+//   })
+//   bot.init();
+//   return bot;
+// }
+
+export default Bot
 

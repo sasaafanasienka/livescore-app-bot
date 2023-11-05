@@ -12,6 +12,5 @@ const bot = new Bot(
   { server: server }
 )
 
-
 bot.init();
 server.init();

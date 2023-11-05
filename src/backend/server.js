@@ -16,7 +16,7 @@ class Server {
     })
 
     this.app.post('/register', async (req, res) => {
-      console.log('body', req.body)
+      console.log('body zalua', req.body)
       // const result = await this.base.register(req.body)
       // console.log(result)
       // console.log(res)

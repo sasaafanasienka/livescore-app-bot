@@ -10,15 +10,21 @@ class Bot extends Telegraf {
     this.server = server;
   }
 
+  getUser = (context) => ({id: context.update.message.from.id, name: context.update.message.from.first_name})
+
   init = () => {
     this.launch();
     this.command('start', (ctx) => {
-      fetch('http://localhost:3000/').then(response => {
+      fetch('http://localhost:3000/register', {
+        method: 'POST', headers: {
+          'Content-Type': 'application/json', // Устанавливаем заголовок для JSON данных
+        }, body: 'gfdgfd'
+      }).then(response => {
         return response;
-      }).then(result => {
+      }).then(result => { 
         const inlineKeyboard = Markup.inlineKeyboard([
-          Markup.button.callback('Кнопка 1', 'addGame'),
-          Markup.button.callback('Кнопка 2', 'button2'),
+          Markup.button.callback('New game', 'addGame'),
+          Markup.button.callback('Join by id', 'joinById'),
         ]);
 
 
@@ -28,13 +34,26 @@ class Bot extends Telegraf {
     this.addMethods();
   }
 
+
+
   addGame = () => {
     console.log('addGame')
   }
 
   addMethods = () => {
     this.action('addGame', (ctx) => {
-      console.log('dfsdfs')
+      fetch('http://localhost:3000/addgame', {
+        method: 'POST', data: {
+        user: this.getUserId(ctx)
+        }
+      }).then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        throw Error
+      }).then(result => {
+        console.log(result)
+      })
     })  
   }
 }

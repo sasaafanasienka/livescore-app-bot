@@ -5,7 +5,7 @@ class Server {
   constructor() {
     this.base = initFirebase();
     this.app = express();
-    this.port = 3000
+    this.port = 3000   
   }
 
   init = () => {
@@ -13,6 +13,18 @@ class Server {
       const usersList = await this.base.getUsersList()
       console.log(usersList);
       res.send('Hello world')
+    })
+
+    this.app.post('/register', async (req, res) => {
+      console.log('body', req.body)
+      // const result = await this.base.register(req.body)
+      // console.log(result)
+      // console.log(res)
+    })
+
+    this.app.post('/addgame', async (req, res) => {
+      const result = await this.base.addGame(req)
+      console.log(result)
     })
 
     this.app.listen(this.port, () => {

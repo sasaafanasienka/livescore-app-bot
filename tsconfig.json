@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@app": [
+        "src/1_app"
+      ],
+      "@pages/*": [
+        "./src/2_pages/*"
+      ],
+      "@widgets/*": [
+        "./src/3_widgets/*"
+      ],
+      "@features/*": [
+        "./src/4_features/*"
+      ],
+      "@entities/*": [
+        "./src/5_entities/*"
+      ],
+      "@shared/*": [
+        "./src/6_shared/*"
+      ]
+    },
+    /* Config fields from VMS */
+    "useDefineForClassFields": true,
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    /* End of Config fields from VMS */
+
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "exclude": ["dist", "public", "node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

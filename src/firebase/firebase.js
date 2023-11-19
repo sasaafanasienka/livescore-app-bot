@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc, setDoc, doc, getDoc } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCAEkZQB0QTi6Ytd5NDgqCCxY29DnEBS4Q",
@@ -28,20 +28,19 @@ class Firebase {
     return usersList
   }
 
-  register = async ({ userId, userName }) => {
+  register = async ({ id, name }) => {
     const users = collection(this.db, 'users') 
-    const userDocRef = doc(users, userId);
+    const userDocRef = doc(users, id);
     const userDocSnapshot = await getDoc(userDocRef)
     if (userDocSnapshot.exists()) {
-      console.log('existst');
-      return
+      return true
     } else {
       const newUser = {
-        id: userId,
-        name: userName
+        id: id,
+        name: name
       }
       await setDoc(userDocRef, newUser)
-      console.log('created')
+      return true
     }
   }
 

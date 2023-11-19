@@ -1,5 +1,14 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc, setDoc, doc, getDoc } from 'firebase/firestore/lite';
 const firebaseConfig = {
     apiKey: "AIzaSyCAEkZQB0QTi6Ytd5NDgqCCxY29DnEBS4Q",
     authDomain: "cows-game.firebaseapp.com",
@@ -10,45 +19,64 @@ const firebaseConfig = {
 };
 class Firebase {
     constructor() {
+        Object.defineProperty(this, "init", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: () => {
+                this.db = getFirestore(this.app);
+            }
+        });
+        Object.defineProperty(this, "getUsersList", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: () => __awaiter(this, void 0, void 0, function* () {
+                const users = collection(this.db, 'users');
+                const usersSnapshot = yield getDocs(users);
+                const usersList = usersSnapshot.docs.map(doc => doc.data());
+                return usersList;
+            })
+        });
+        Object.defineProperty(this, "register", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ({ id, name }) => __awaiter(this, void 0, void 0, function* () {
+                const users = collection(this.db, 'users');
+                const userDocRef = doc(users, id);
+                const userDocSnapshot = yield getDoc(userDocRef);
+                if (userDocSnapshot.exists()) {
+                    return true;
+                }
+                else {
+                    const newUser = {
+                        id: id,
+                        name: name
+                    };
+                    yield setDoc(userDocRef, newUser);
+                    return true;
+                }
+            })
+        });
+        Object.defineProperty(this, "addGame", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ({ user }) => __awaiter(this, void 0, void 0, function* () {
+                const users = collection(this.db, 'games');
+                const games = collection(this.db, 'games');
+                const game = {
+                    id: String(Math.floor(Math.random() * 1000000000))
+                };
+                addDoc(games, game).then((doc) => {
+                    return doc;
+                });
+            })
+        });
         this.app = initializeApp(firebaseConfig);
         this.db = undefined;
     }
-    init = () => {
-        this.db = getFirestore(this.app);
-    };
-    getUsersList = async () => {
-        const users = collection(this.db, 'users');
-        const usersSnapshot = await getDocs(users);
-        const usersList = usersSnapshot.docs.map(doc => doc.data());
-        return usersList;
-    };
-    register = async ({ userId, userName }) => {
-        const users = collection(this.db, 'users');
-        const userDocRef = doc(users, userId);
-        const userDocSnapshot = await getDoc(userDocRef);
-        if (userDocSnapshot.exists()) {
-            console.log('existst');
-            return;
-        }
-        else {
-            const newUser = {
-                id: userId,
-                name: userName
-            };
-            await setDoc(userDocRef, newUser);
-            console.log('created');
-        }
-    };
-    addGame = async ({ user }) => {
-        const users = collection(this.db, 'games');
-        const games = collection(this.db, 'games');
-        const game = {
-            id: String(Math.floor(Math.random() * 1000000000))
-        };
-        addDoc(games, game).then((doc) => {
-            return doc;
-        });
-    };
 }
 export const initFirebase = () => {
     const firebase = new Firebase();

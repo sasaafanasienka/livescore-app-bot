@@ -1,5 +1,6 @@
 import express from 'express'
 import { initFirebase } from '../firebase/firebase.js';
+import bodyParser from 'body-parser'
 
 class Server {
   constructor() {
@@ -9,6 +10,8 @@ class Server {
   }
 
   init = () => {
+    this.app.use(bodyParser.json())
+    this.app.use(bodyParser.urlencoded({extended: true}))
     this.app.get('/', async (req, res) => {
       const usersList = await this.base.getUsersList()
       console.log(usersList);
@@ -16,10 +19,12 @@ class Server {
     })
 
     this.app.post('/register', async (req, res) => {
-      console.log('body zalua', req.body)
-      // const result = await this.base.register(req.body)
-      // console.log(result)
-      // console.log(res)
+      const result = await this.base.register(req.body)
+      if (result === true) {
+        res.status(200).send()
+      } else {
+        res.status(500).send()
+      }
     })
 
     this.app.post('/addgame', async (req, res) => {

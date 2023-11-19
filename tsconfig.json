@@ -2,27 +2,18 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@app": [
-    //     "src/1_app"
-    //   ],
-    //   "@pages/*": [
-    //     "./src/2_pages/*"
-    //   ],
-    //   "@widgets/*": [
-    //     "./src/3_widgets/*"
-    //   ],
-    //   "@features/*": [
-    //     "./src/4_features/*"
-    //   ],
-    //   "@entities/*": [
-    //     "./src/5_entities/*"
-    //   ],
-    //   "@shared/*": [
-    //     "./src/6_shared/*"
-    //   ]
-    // },
+    "baseUrl": "./",
+    "paths": {
+      "@base": [
+        "src/firebase"
+      ],
+      "@server": [
+        "src/backend"
+      ],
+      "@bot": [
+        "src/bot"
+      ]
+    },
     /* Config fields from VMS */
     "useDefineForClassFields": true,
     "allowJs": true,
@@ -31,14 +22,14 @@
     "forceConsistentCasingInFileNames": true,
     /* End of Config fields from VMS */
 
-    "target": "ESNext",
+    "target": "ES2015",
     // "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
+    "module": "ES6",
     "skipLibCheck": true,
     // "allowJs"
 
     /* Bundler mode */
-    // "moduleResolution": "bundler",
+    "moduleResolution": "bundler",
     // "allowImportingTsExtensions": true,
     // "resolveJsonModule": true,
     // "isolatedModules": true,

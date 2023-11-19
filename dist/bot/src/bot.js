@@ -1,51 +1,46 @@
-import { Markup, Telegraf } from "telegraf";
+import { Telegraf } from "telegraf";
+// import axios from "axios"
+// import { ENDPOINT, getEndpoint } from "./config/urls";
+// import axios from "node_modules/axios/index";
 class Bot extends Telegraf {
-    constructor(TOKEN, options, { server }) {
+    // constructor(TOKEN, options, {server}) {
+    constructor(TOKEN, options) {
         super(TOKEN, options);
-        this.players = [
-            { name: 'Sasha Afanasienka', id: 227431181 },
-            { name: 'Anna', id: 369274901 }
-        ];
-        this.server = server;
+        // getUser = (context) => ({id: String(context.update.message.from.id), name: context.update.message.from.first_name})
+        Object.defineProperty(this, "init", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: () => {
+                this.launch();
+                this.applyMethods();
+            }
+        });
+        Object.defineProperty(this, "applyMethods", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: () => {
+                this.command('start', this.startCommand);
+            }
+        });
+        Object.defineProperty(this, "startCommand", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: (ctx) => {
+                ctx.reply('ns gbplh');
+                // axios.post(getEndpoint(ENDPOINT.REGISTER), this.getUser(ctx)).then(response => {
+                //   console.log(response.data)
+                //   ctx.reply(`id: ${response.data.id}`)
+                //   ctx.reply(`name: ${response.data.name}`)
+                //   // return response.json()
+                // }).then(result => {
+                //   // console.log(result)
+                // })
+            }
+        });
+        // this.server = server;
     }
-    getUser = (context) => ({ id: context.update.message.from.id, name: context.update.message.from.first_name });
-    init = () => {
-        this.launch();
-        this.command('start', (ctx) => {
-            fetch('http://localhost:3000/register', {
-                method: 'POST', headers: {
-                    'Content-Type': 'application/json', // Устанавливаем заголовок для JSON данных
-                }, body: 'gfdgfd'
-            }).then(response => {
-                return response;
-            }).then(result => {
-                const inlineKeyboard = Markup.inlineKeyboard([
-                    Markup.button.callback('New game', 'addGame'),
-                    Markup.button.callback('Join by id', 'joinById'),
-                ]);
-                ctx.reply('Выберите действие:', inlineKeyboard);
-            });
-        });
-        this.addMethods();
-    };
-    addGame = () => {
-        console.log('addGame');
-    };
-    addMethods = () => {
-        this.action('addGame', (ctx) => {
-            fetch('http://localhost:3000/addgame', {
-                method: 'POST', data: {
-                    user: this.getUserId(ctx)
-                }
-            }).then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                throw Error;
-            }).then(result => {
-                console.log(result);
-            });
-        });
-    };
 }
 export default Bot;

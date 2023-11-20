@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
       "@base": [
         "src/firebase"
@@ -42,6 +42,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts"],
   "exclude": ["dist", "public", "node_modules"],
 }

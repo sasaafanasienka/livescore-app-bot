@@ -1,6 +1,6 @@
 // import Server from './backend/server.js';
-import {TELEGRAM_TOKEN} from './bot/src/config/tokens.js';
-import Bot from './bot/src/bot.js';
+import {TELEGRAM_TOKEN} from './bot/config/tokens';
+import Bot from './bot/bot';
 
 // const server = new Server()
 

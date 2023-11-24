@@ -16,6 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@telegraf/types": "^6.9.1",
+    "@types/express": "^4.17.21",
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.1",
     "ts-loader": "^9.5.1",

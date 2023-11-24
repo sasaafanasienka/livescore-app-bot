@@ -8,10 +8,13 @@
         "src/firebase"
       ],
       "@server": [
-        "src/backend"
+        "src/server"
       ],
       "@bot": [
         "src/bot"
+      ],
+      "@botconfig": [
+        "src/bot/config"
       ]
     },
     /* Config fields from VMS */

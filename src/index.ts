@@ -1,8 +1,8 @@
-// import Server from './backend/server.js';
 import {TELEGRAM_TOKEN} from './bot/config/tokens';
 import Bot from './bot/bot';
+import Server from './server/server';
 
-// const server = new Server()
+const server = new Server()
 
 const bot = new Bot(
   TELEGRAM_TOKEN,
@@ -12,4 +12,4 @@ const bot = new Bot(
 )
 
 bot.init();
-// server.init();
+server.init();

@@ -1,33 +1,20 @@
 {
-  "name": "live-score-bot",
+  "name": "telegram-bot-livescore",
   "version": "1.0.0",
-  "description": "",
+  "description": "livescore telegram bot",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "build": "webpack",
-    "start": "node ./index.js",
-    "dev": "concurrently \"webpack -w\" \"nodemon dist/bundle.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "test": "test",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@telegraf/types": "^6.9.1",
-    "@types/express": "^4.17.21",
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.0.1",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.2.2",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
-  },
+  "author": "afanasienka@yandex.by",
+  "license": "MIT",
   "dependencies": {
-    "axios": "^1.6.2",
-    "express": "^4.18.2",
-    "firebase": "^10.5.2",
-    "telegraf": "^4.13.1"
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
